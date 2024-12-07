@@ -36,11 +36,12 @@ public class SimFrame extends JPanel implements ActionListener {
         }
     };
     Timer timer;
-    final int GROUND = 500-b.diameter;
+    final int GROUND = 460-b.diameter;
     final int BOUNCE_BUFFER = b.radius;
+    final int GRAVITY = 3;
 
     public SimFrame() {
-        setPreferredSize(new Dimension(500,500));
+        //setPreferredSize(new Dimension(500,500));
         setBackground(Color.black);
         addMouseListener(ml);
         setVisible(true);
@@ -56,27 +57,33 @@ public class SimFrame extends JPanel implements ActionListener {
     public void draw(Graphics g){
         g.setColor(Color.BLUE);
         g.drawOval(b.x,b.y,b.diameter,b.diameter);
+
+        g.setColor(Color.white);
+        g.drawLine(0,460,500,460);
     }
 
     public void bounce(){
-
-        if(b.y> GROUND){
-            b.y = GROUND;
-            if(abs(b.vy)<= b.MIN_SPEED) {
-                System.out.println("stopped");
-                b.vy = 0;
-            }else {
-                b.vy = (b.vy - b.vy / 3) * (-1);
-            }
+        if(b.y == GROUND){
+            b.vy = -(b.vy/3);
         }
 
     }
 
+    public void fall(){
+        if(b.y+b.vy >= GROUND){
+            b.y = GROUND;
+        }else {
+            b.y += b.vy;
+            b.vy += GRAVITY;
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        b.fall();
+        fall();
         bounce();
-        System.out.println(b.vy);
+        System.out.println("vy = "+b.vy);
+        System.out.println("y = "+b.y);
         repaint();
     }
 }

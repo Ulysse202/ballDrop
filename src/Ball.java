@@ -3,7 +3,7 @@ public class Ball {
     int radius;
     int diameter;
     int vx,vy;
-    final int GRAVITY = 3;
+
     final int MIN_SPEED = 18;
 
     public Ball( int x,int y,int radius){
@@ -17,8 +17,4 @@ public class Ball {
         this.radius = radius;
     }
 
-    public void fall(){
-       y+= vy;
-       vy+=GRAVITY;
-    }
 }
