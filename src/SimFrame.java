@@ -64,7 +64,7 @@ public class SimFrame extends JPanel implements ActionListener {
 
     public void bounce(){
         if(b.y == GROUND){
-            b.vy = -(b.vy/3);
+            b.vy = (int)-(b.vy/1.75);
         }
 
     }
