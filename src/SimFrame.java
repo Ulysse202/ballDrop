@@ -39,6 +39,7 @@ public class SimFrame extends JPanel implements ActionListener {
     final int GROUND = 460-b.diameter;
     final int BOUNCE_BUFFER = b.radius;
     final int GRAVITY = 3;
+    final int MIN_SPEED = 4;
 
     public SimFrame() {
         //setPreferredSize(new Dimension(500,500));
@@ -56,16 +57,20 @@ public class SimFrame extends JPanel implements ActionListener {
 
     public void draw(Graphics g){
         g.setColor(Color.BLUE);
-        g.drawOval(b.x,b.y,b.diameter,b.diameter);
+        g.drawOval((int)b.x,(int)b.y,b.diameter,b.diameter);
 
         g.setColor(Color.white);
         g.drawLine(0,460,500,460);
     }
 
     public void bounce(){
-        if(b.y == GROUND){
-            b.vy = (int)-(b.vy/1.75);
+
+        if(b.vy < MIN_SPEED){
+            b.vy = 0;
+        }else {
+            b.vy = -(b.vy / 1.75);
         }
+
 
     }
 
@@ -81,7 +86,9 @@ public class SimFrame extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         fall();
-        bounce();
+        if(b.y == GROUND){
+            bounce();
+        }
         System.out.println("vy = "+b.vy);
         System.out.println("y = "+b.y);
         repaint();

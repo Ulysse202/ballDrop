@@ -1,8 +1,8 @@
 public class Ball {
-    int x,y;
+    double x,y;
     int radius;
     int diameter;
-    int vx,vy;
+    double vx,vy;
 
     final int MIN_SPEED = 18;
 
